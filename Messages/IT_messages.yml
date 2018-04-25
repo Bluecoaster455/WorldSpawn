@@ -1,0 +1,63 @@
+﻿#World Spawn messaggi. Traduci da FoviOX (Google Translate)
+
+#Prefisso per i comandi di feedback
+worldspawn-main-prefix: '&a[&bWorldSpawn&a] '
+
+#Prefisso per i comandi di admin
+worldspawn-admin-prefix: '&a[&bWS Admin&a] '
+
+#Prefisso per i messaggi di errore
+worldspawn-error-prefix: '&4[&cWorldSpawn&4] '
+
+#Viene visualizzato quando il giocatore non ha alcun permesso quando si utilizza un comando World Spawn.
+command-no-permission: '&cNon hai l'autorizzazione a utilizzare quel comando.'
+
+#Di solito mostrato in console quando la console tenta di utilizzare la spawn o qualcosa di più ..
+not-a-player-error: '&cDevi essere un giocatore per utilizzare questo comando.'
+
+#Viene mostrato quando si cerca di accedere a un mondo inesistente.
+specified-world-not-exist: '&cIl mondo specificato non esiste.'
+
+#Mostrato quando il mondo non ha spawn
+no-spawn-world: '&cNon esiste spawn in questo mondo.'
+
+#Viene visualizzato quando si utilizza /worldspawn che fa solo ricaricare una configurazione.
+config-reload: '&aConfig ricaricato!'
+
+#Viene mostrato quando si utilizza il riproduttore utilizzando hub /hub
+hub-spawning: '&aSpawning to Hub...'
+
+#Viene visualizzato quando il comando /linkspawn non riesce
+#%w = nome del mondo specificato
+spawn-link-fail: '&e%w &cnon esiste o non ha un punto spawn.'
+
+#Viene mostrato quando si connette con successo un mondo ad un mondo
+#%f = nome del mondo dove il giocatore ha eseguito il comando
+#%t = mondo specificato
+spawn-link-success: '&e%w &aè ora collegato %t'
+
+#Viene visualizzato quando si imposta correttamente il hub utilizzando /sethub
+hub-set-success: '&aHub impostato!'
+
+#Viene visualizzato quando il hub non esiste
+hub-not-exists: '&cHub non esiste'
+
+#Viene visualizzato quando si imposta correttamente la posizione spawn di un mondo
+#%w = nome Mondiale
+set-spawn-success: '&aSpawn impostato per %w&a!'
+
+#Viene visualizzato quando si elimina correttamente un spawn da mondo
+#%w = nome Mondiale
+spawn-delete-success: '&aSpawn deleted for &e%w &a!'
+
+#Viene visualizzato quando si utilizza /spawn con un ritardo
+#%w = nome Mondiale
+#%t = ritardo in secondi
+spawning-delay-message: '&aSpawning a &e%w in %t secondi...'
+
+#Mostrato quando si riproduce in un altro mondo
+#%w = nome Mondiale
+spawning-message: '&aSpawning a &e%w&a...'
+
+#Viene mostrato quando la nascita viene annullata
+spawning-cancelled: '&cSpawning annullato!'

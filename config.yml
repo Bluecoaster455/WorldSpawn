@@ -1,0 +1,37 @@
+#World Spawn Configs
+
+#What language you want the messages?
+language: EN
+
+#Spawns the player to hub location when joining
+hub-on-join: true
+
+#Spawns the player to world spawn when joining (Is priority over hub)
+#If a world does not have a spawn, the player will spawn at hub
+spawn-on-join: false
+
+#How long (in seconds) does it take to spawn the player after running
+#the command? (0 = disable)
+spawn-delay: 0
+
+#WARNING: If you do not have a world called "world", you may experience some console errors.
+#         If you are experiencing console errors, shut down the server and rename the "world"
+#         setting of hub and spawns sections to your main world name!
+
+#Hub location
+hub:
+  world: world
+  x: 0
+  y: 80.0
+  z: 0
+  yaw: 90.0
+  pitch: 0.0
+
+spawns:
+  world:
+    world: world
+    x: 0
+    y: 80.0
+    z: 0
+    yaw: 0
+    pitch: 0

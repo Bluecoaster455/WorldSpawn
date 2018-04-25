@@ -1,0 +1,63 @@
+﻿#World Spawn Mensajes. Traducir por FoviOX (Google Translate)
+
+#Prefijo para comandos de retroalimentación
+worldspawn-main-prefix: '&a[&bWorldSpawn&a] '
+
+#Prefijo para los comandos de administración
+worldspawn-admin-prefix: '&a[&bWS Admin&a] '
+
+#Prefijo de mensajes de error
+worldspawn-error-prefix: '&4[&cWorldSpawn&4] '
+
+#Se muestra cuando el reproductor no tiene permiso al usar un comando de Spawn Mundial.
+command-no-permission: '&cNo tienes permiso para usar ese comando.'
+
+#Normalmente se muestra en la consola cuando la consola intenta utilizar spawn o algo así ..
+not-a-player-error: '&cDebe ser un jugador para usar ese comando.'
+
+#Se muestra al intentar acceder a un mundo inexistente.
+specified-world-not-exist: '&cEl mundo especificado no existe.'
+
+#Se muestra cuando el mundo no tiene freza
+no-spawn-world: '&cNo hay spawn en este mundo.'
+
+#Se muestra al usar /worldspawn que sólo hace una recarga de configuración.
+config-reload: '&aConfiguración recargada!'
+
+#Se muestra al desovar usando /hub
+hub-spawning: '&aSpawning a Hub...'
+
+#Se muestra cuando falla el comando /linkspawn
+#%w = nombre mundial especificado
+spawn-link-fail: '&e%w &cno existe o no tiene un punto de desove.'
+
+#Se muestra al vincular con éxito un mundo a un mundo
+#%f = nombre del mundo donde el jugador ejecutó el comando
+#%t = mundo especificado
+spawn-link-success: '&e%w &aestá ahora vinculado a %t'
+
+#Se muestra al configurar correctamente el concentrador mediante /sethub
+hub-set-success: '&aHub conjunto!'
+
+#Se muestra cuando el concentrador no existe
+hub-not-exists: '&cHub no existe'
+
+#Se muestra al establecer con éxito la ubicación de desove de un mundo
+#%w = nombre mundial
+set-spawn-success: '&aSpawn establecido para %w&a!'
+
+#Se muestra al eliminar con éxito un spawn del mundo
+#%w = nombre mundial
+spawn-delete-success: '&aSpawn suprimido por &e%w &a!'
+
+#Se muestra al usar /spawn con un retardo
+#%w = nombre mundial
+#%t = retraso en segundos
+spawning-delay-message: '&aSpawning a &e%w en %t segundos...'
+
+#Se muestra al desovar a otro mundo
+#%w = nombre mundial
+spawning-message: '&aSpawning a &e%w&a...'
+
+#Se muestra cuando se está cancelando el desove
+spawning-cancelled: '&cSpawning cancelado!'

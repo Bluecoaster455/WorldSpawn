@@ -1,0 +1,64 @@
+﻿#World Spawn Messages
+
+#Prefix pour les messages normaux.
+worldspawn-main-prefix: '&a[&bWorldSpawn&a] '
+
+#Prefix pour les commandes administateur.
+worldspawn-admin-prefix: '&a[&bWS Admin&a] '
+
+#Prefix pour les messages d'erreurs.
+worldspawn-error-prefix: '&4[&cWorldSpawn&4] '
+
+#S'affiche quand le joueur n'a pas la permission d'utiliser une commande de World Spawn.
+command-no-permission: '&cVous n''avez pas la permission d''utiliser cette commande.'
+
+#S'affiche quand la console essaye d'exécuter une commande pour joueurs seulement.
+not-a-player-error: '&cVous devez être un joueur pour exécuter cette commande.'
+
+#S'affiche quand la commande essaye d'accéder un monde inexistant.
+specified-world-not-exist: '&cLe monde spécifié n''existe pas.'
+
+#S'affiche quand le monde n'a pas de spawn.
+no-spawn-world: '&cIl n''y a pas de spawn dans ce monde.'
+
+#S'affiche quand la configuration à été rechargé utilisant /worldspawn.
+config-reload: '&aConfiguration rechargée!'
+
+#S'affiche quand un joueur se téléporte au hub.
+hub-spawning: '&aTéléportation au hub en cours...'
+
+#S'affiche quand la commande "/linkspawn" échoue.
+#OÙ %w = le monde spécifié
+spawn-link-fail: '&e%w &cn''existe pas ou n''a pas de point de spawn.'
+
+#S'affiche quand l'utilisation de "/linkspawn" est un succès
+#OÙ %f = le monde où le joueur est situé lors de l'exécution de la commande
+#   %t = le monde spécifié
+spawn-link-success: '&e%w &aest maintenant lié à %t'
+
+#S'affiche quand la commande "/sethub" a été un succès.
+hub-set-success: '&aHub fixé!'
+
+#S'affiche quand le hub est inexistant.
+hub-not-exists: '&cLe hub n''existe pas.'
+
+#S'affiche quand la fixation d'un spawn a été un succès.
+#OÙ %w = Le nom du monde
+set-spawn-success: '&aSpawn fixé pour %w&a!'
+
+#S'affiche quand la suppression d'un spawn a été un succès.
+#OÙ %w = Le nom du monde
+spawn-delete-success: '&aSpawn supprimé pour &e%w &a!'
+
+#s'affiche quand le joueur se téléporte avec un délai
+#OÙ %w = Le nom du monde
+#   %t = delai en secondes
+spawning-delay-message: '&aTéléportation à &e%w dans %t secondes...'
+
+#S'affiche quand le joueur se téléporte
+#OÙ %w = Le nom du monde
+spawning-message: '&aTéléportation à &e%w&a en cours...'
+
+#S'affiche quand la téléportation a été interrompu
+spawning-cancelled: '&cTéléportation annulée!'
+

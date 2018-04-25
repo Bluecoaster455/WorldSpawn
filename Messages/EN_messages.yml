@@ -1,0 +1,64 @@
+﻿#World Spawn Messages
+
+#Prefix for feedback commands
+worldspawn-main-prefix: '&a[&bWorldSpawn&a] '
+
+#Prefix for admin commands
+worldspawn-admin-prefix: '&a[&bWS Admin&a] '
+
+#Prefix for error messages
+worldspawn-error-prefix: '&4[&cWorldSpawn&4] '
+
+#Shown when the player has no permission when using a World Spawn command.
+command-no-permission: '&cYou do not have permission to use that command.'
+
+#Usually shown in console when the console tries to use spawn or something..
+not-a-player-error: '&cYou must be a player to use that command.'
+
+#Shown when trying to access a non-existant world.
+specified-world-not-exist: '&cThe specified world does not exist.'
+
+#Shown when the world has no spawn
+no-spawn-world: '&cThere is no spawn in this world.'
+
+#Shown when using /worldspawn which just does a config reload.
+config-reload: '&aConfig reloaded!'
+
+#Shown when spawning using /hub
+hub-spawning: '&aSpawning to Hub...'
+
+#Shown when the /linkspawn command fails
+#WHERE %w = specified world name
+spawn-link-fail: '&e%w &cdoes not exist or does not have a spawn point.'
+
+#Shown when successfully linking a world to a worldspawn
+#WHERE %f = world name where the player executed the command
+#      %t = specified world
+spawn-link-success: '&e%w &ais now linked to %t'
+
+#Shown when successfully setting the hub using /sethub
+hub-set-success: '&aHub set!'
+
+#Shown when hub does not exist
+hub-not-exists: '&cHub does not exist'
+
+#Shown when successfully setting the spawn location of a world
+#WHERE %w = world name
+set-spawn-success: '&aSpawn set for %w&a!'
+
+#Shown when successfully deleting a spawn from %w world
+#WHERE %w = world name
+spawn-delete-success: '&aSpawn deleted for &e%w &a!'
+
+#Shown when using /spawn with a delay
+#WHERE %w = world name
+#      %t = delay in seconds
+spawning-delay-message: '&aSpawning to &e%w in %t seconds...'
+
+#Shown when spawning to an other world
+#WHERE %w = world name
+spawning-message: '&aSpawning to &e%w&a...'
+
+#Shown when the spawning is being cancelled
+spawning-cancelled: '&cSpawning cancelled!'
+

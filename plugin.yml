@@ -1,0 +1,13 @@
+main: me.Bluecoaster455.worldspawn.WorldSpawn
+author: Bluecoaster455
+version: 1.1
+name: WorldSpawn
+commands:
+  spawn:
+  setspawn:
+  sethub:
+  hub:
+  linkspawn:
+  spawn:
+  delspawn:
+  worldspawn:

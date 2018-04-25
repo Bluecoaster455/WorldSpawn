@@ -1,0 +1,63 @@
+﻿#World Spawn Üzenetek
+
+#Előtag a visszacsatolási parancsokhoz
+worldspawn-main-prefix: '&a[&bWorldSpawn&a] '
+
+#Előtag az admin parancsokhoz
+worldspawn-admin-prefix: '&a[&bWS Admin&a] '
+
+#Előtag a hibaüzenetekhez
+worldspawn-error-prefix: '&4[&cWorldSpawn&4] '
+
+#Akkor jelenik meg, ha a játékosnak nincs joga a World Spawn parancs használatakor.
+command-no-permission: '&cNincs jogod ennek a parancsnak a használatára.'
+
+#Általában a konzolon jelenik meg, amikor a konzol megpróbálja használni a spawnot vagy valami..
+not-a-player-error: '&cOlyan játékosnak kell lennie, aki használni szeretné ezt a parancsot.'
+
+#A nem létező világhoz való hozzáférés megmutatásakor látható.
+specified-world-not-exist: '&cA megadott világ nem létezik.'
+
+#Ha a világnak nincs spawnja
+no-spawn-world: '&cEbben a világban nincs spawn.'
+
+#Megjelenítve a /worldspawn használatakor, ami csak egy konfigurációs újratöltést jelent.
+config-reload: '&aA konfiguráció újratöltve!'
+
+#Megmutatja, ha a spawnolás a /hub segítségével történik
+hub-spawning: '&aTeleportálás a Hub-ra...'
+
+#Megjelenik a /linkspawn parancs sikertelen
+#AHOL %w = meghatározott világnév
+spawn-link-fail: '&e%w &cnem létezik, vagy nincs spawn pontja.'
+
+#Megmutatható, ha sikeresen összekapcsolja a világot egy világpróbával
+#AHOL %f = világ neve, ahol a játékos végrehajtotta a parancsot
+#      %t = megadott világ
+spawn-link-success: '&e%w &amost kapcsolódik %t'
+
+#A hub sikeres beállítása a /sethub segítségével
+hub-set-success: '&aHub beálltva!'
+
+#Akkor jelenik meg, ha a hub nem létezik
+hub-not-exists: '&cA Hub nem létezik'
+
+#A világ spawn helyének sikeres beállításakor látható
+#AHOL %w = világ név
+set-spawn-success: '&aA spawn beállítva a(z) %w&a világban!'
+
+#Megjelenítve, ha sikeresen törli az íveket a %w világból
+#AHOL %w = világ név
+spawn-delete-success: '&aA spawn törölve a(z) &e%w&a világból!'
+
+#A késleltetés /spawn használatakor látható
+#AHOL %w = világ név
+#      %t = késleltetés másodpercekben
+spawning-delay-message: '&aTeleportálás a(z) &e%w&a világba&e %t&a másodpercen belül...'
+
+#Mutatott, ha spawn egy másik világba
+#AHOL %w = világ név
+spawning-message: '&aTeleportálás a(z) &e%w&a világba...'
+
+#Akkor jelenik meg, amikor az spawn megszűnik
+spawning-cancelled: '&cA teleportálás megszakítva!'
