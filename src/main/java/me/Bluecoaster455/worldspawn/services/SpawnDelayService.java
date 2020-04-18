@@ -1,8 +1,6 @@
 package me.Bluecoaster455.worldspawn.services;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -32,6 +30,7 @@ public class SpawnDelayService implements Listener {
 			int id = gTeleporting.get(uuid);
 			Bukkit.getScheduler().cancelTask(id);
 			pPlayer.sendMessage(WSConfig.getMainPrefix()+WSConfig.getMessage("spawning-cancelled"));
+			gTeleporting.remove(uuid);
 		}
 		
 	}

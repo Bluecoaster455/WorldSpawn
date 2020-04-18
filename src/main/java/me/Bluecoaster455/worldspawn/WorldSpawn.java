@@ -35,6 +35,7 @@ public class WorldSpawn extends JavaPlugin implements Listener{
 	@Override
 	public void onEnable() {
 		gPlugin = this;
+		Metrics metrics = new Metrics(this, 6585);
 		
 		gSDSvc = new SpawnDelayService();
 		

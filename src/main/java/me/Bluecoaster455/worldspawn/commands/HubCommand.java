@@ -22,7 +22,6 @@ public class HubCommand implements CommandExecutor{
 		
 		if(p.hasPermission("worldspawn.use")){
 			
-			Location loc = p.getLocation();
 			Location spawn = WSConfig.getHub();
 			
 			if(spawn == null){

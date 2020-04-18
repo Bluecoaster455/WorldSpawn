@@ -3,11 +3,9 @@ package me.Bluecoaster455.worldspawn.commands;
 import me.Bluecoaster455.worldspawn.WorldSpawn;
 import me.Bluecoaster455.worldspawn.config.WSConfig;
 
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class WorldSpawnCommand implements CommandExecutor{
 

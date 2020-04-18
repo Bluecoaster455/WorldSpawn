@@ -3,6 +3,9 @@
 #What language you want the messages?
 language: EN
 
+#Enable or disable the hub command
+hub-enabled: true
+
 #Spawns the player to hub location when joining
 hub-on-join: true
 

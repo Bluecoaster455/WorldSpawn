@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import me.Bluecoaster455.worldspawn.WorldSpawn;
+import me.Bluecoaster455.worldspawn.commands.HubCommand;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -15,7 +16,8 @@ public class WSConfig {
 	
 	private static HashMap<String, Location> gWorldSpawns;
 	private static Location gHubLocation;
-	
+
+	private static boolean hub_enabled = true;
 	private static boolean hub_on_join = false;
 	private static boolean spawn_on_join = false;
 	private static int spawn_delay = 0;
@@ -45,7 +47,8 @@ public class WSConfig {
 		}
 		
 		plugin.reloadConfig();
-		
+
+		hub_enabled = plugin.getConfig().getBoolean("hub-enabled");
 		spawn_on_join = plugin.getConfig().getBoolean("spawn-on-join");
 		hub_on_join = spawn_on_join ? false : plugin.getConfig().getBoolean("hub-on-join");
 		spawn_delay = plugin.getConfig().getInt("spawn-delay");
@@ -73,6 +76,13 @@ public class WSConfig {
 			gWorldSpawns.put(aspawn, new Location(spawnworld, spawnx, spawny, spawnz, spawnyaw, spawnpitch));
 		}
 		reloadMessages();
+
+		if(isHubEnabled()) {
+			Bukkit.getPluginCommand("hub").setExecutor(new HubCommand());
+		}
+		else {
+			Bukkit.getPluginCommand("hub").setExecutor(null);
+		}
 	}
 	
 	public static void reloadMessages() {
@@ -104,23 +114,27 @@ public class WSConfig {
 	}
 	
 	public static String getMainPrefix() {
-		return gMessages.get("worldspawn-main-prefix").replace("&", "ง");
+		return gMessages.get("worldspawn-main-prefix").replace("&", "ยง");
 	}
 	
 	public static String getErrorPrefix() {
-		return gMessages.get("worldspawn-error-prefix").replace("&", "ง");
+		return gMessages.get("worldspawn-error-prefix").replace("&", "ยง");
 	}
 	
 	public static String getAdminPrefix() {
-		return gMessages.get("worldspawn-admin-prefix").replace("&", "ง");
+		return gMessages.get("worldspawn-admin-prefix").replace("&", "ยง");
 	}
 	
 	public static String getMessage(String pKey) {
-		return gMessages.get(pKey).replace("&", "ง");
+		return gMessages.get(pKey).replace("&", "ยง");
 	}
 	
 	public static boolean isSpawnOnJoin(){
 		return spawn_on_join;
+	}
+	
+	public static boolean isHubEnabled(){
+		return hub_enabled;
 	}
 	
 	public static boolean isHubOnJoin(){
