@@ -1,4 +1,4 @@
-package me.Bluecoaster455.worldspawn.services;
+package me.bluecoaster455.worldspawn.services;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -11,8 +11,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import me.Bluecoaster455.worldspawn.WorldSpawn;
-import me.Bluecoaster455.worldspawn.config.WSConfig;
+import me.bluecoaster455.worldspawn.WorldSpawn;
+import me.bluecoaster455.worldspawn.config.WSConfig;
 
 public class SpawnDelayService implements Listener {
 	

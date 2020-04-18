@@ -1,15 +1,15 @@
-package me.Bluecoaster455.worldspawn;
+package me.bluecoaster455.worldspawn;
 
-import me.Bluecoaster455.worldspawn.commands.DelSpawnCommand;
-import me.Bluecoaster455.worldspawn.commands.HubCommand;
-import me.Bluecoaster455.worldspawn.commands.LinkSpawnCommand;
-import me.Bluecoaster455.worldspawn.commands.SetHubCommand;
-import me.Bluecoaster455.worldspawn.commands.SetSpawnCommand;
-import me.Bluecoaster455.worldspawn.commands.SpawnCommand;
-import me.Bluecoaster455.worldspawn.commands.WorldSpawnCommand;
-import me.Bluecoaster455.worldspawn.config.WSConfig;
-import me.Bluecoaster455.worldspawn.listeners.WSListeners;
-import me.Bluecoaster455.worldspawn.services.SpawnDelayService;
+import me.bluecoaster455.worldspawn.commands.DelSpawnCommand;
+import me.bluecoaster455.worldspawn.commands.HubCommand;
+import me.bluecoaster455.worldspawn.commands.LinkSpawnCommand;
+import me.bluecoaster455.worldspawn.commands.SetHubCommand;
+import me.bluecoaster455.worldspawn.commands.SetSpawnCommand;
+import me.bluecoaster455.worldspawn.commands.SpawnCommand;
+import me.bluecoaster455.worldspawn.commands.WorldSpawnCommand;
+import me.bluecoaster455.worldspawn.config.WSConfig;
+import me.bluecoaster455.worldspawn.listeners.WSListeners;
+import me.bluecoaster455.worldspawn.services.SpawnDelayService;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -35,7 +35,7 @@ public class WorldSpawn extends JavaPlugin implements Listener{
 	@Override
 	public void onEnable() {
 		gPlugin = this;
-		Metrics metrics = new Metrics(this, 6585);
+		new Metrics(this, 6585);
 		
 		gSDSvc = new SpawnDelayService();
 		

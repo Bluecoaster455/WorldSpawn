@@ -1,9 +1,9 @@
-package me.Bluecoaster455.worldspawn.listeners;
+package me.bluecoaster455.worldspawn.listeners;
 
 import java.util.HashMap;
 import java.util.UUID;
 
-import me.Bluecoaster455.worldspawn.config.WSConfig;
+import me.bluecoaster455.worldspawn.config.WSConfig;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

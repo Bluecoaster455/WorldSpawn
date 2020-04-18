@@ -1,10 +1,10 @@
-package me.Bluecoaster455.worldspawn.config;
+package me.bluecoaster455.worldspawn.config;
 
 import java.io.File;
 import java.util.HashMap;
 
-import me.Bluecoaster455.worldspawn.WorldSpawn;
-import me.Bluecoaster455.worldspawn.commands.HubCommand;
+import me.bluecoaster455.worldspawn.WorldSpawn;
+import me.bluecoaster455.worldspawn.commands.HubCommand;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

@@ -1,4 +1,4 @@
-package me.Bluecoaster455.worldspawn;
+package me.bluecoaster455.worldspawn;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

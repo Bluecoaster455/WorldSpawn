@@ -1,6 +1,6 @@
-package me.Bluecoaster455.worldspawn.commands;
+package me.bluecoaster455.worldspawn.commands;
 
-import me.Bluecoaster455.worldspawn.config.WSConfig;
+import me.bluecoaster455.worldspawn.config.WSConfig;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -23,7 +23,7 @@ public class LinkSpawnCommand implements CommandExecutor{
 		if(p.hasPermission("worldspawn.admin")){
 			
 			if(args.length < 1){
-				p.sendMessage(WSConfig.getAdminPrefix()+"§6/"+label+" <world>");
+				p.sendMessage(WSConfig.getAdminPrefix()+"ï¿½6/"+label+" <world>");
 				return true;
 			}
 			

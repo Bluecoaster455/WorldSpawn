@@ -1,6 +1,6 @@
-package me.Bluecoaster455.worldspawn.commands;
+package me.bluecoaster455.worldspawn.commands;
 
-import me.Bluecoaster455.worldspawn.config.WSConfig;
+import me.bluecoaster455.worldspawn.config.WSConfig;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
