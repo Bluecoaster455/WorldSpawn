@@ -26,11 +26,16 @@ public class SetSpawnCommand implements CommandExecutor{
 
 			if(args.length >= 1){
 				String arg0 = args[0];
-				try{
-					respawn = Boolean.parseBoolean(arg0);
-				} catch(Exception ex){
-					p.sendMessage(WSConfig.getAdminPrefix()+"§6/"+label+" <true|false>");
-					return true;
+				switch(arg0){
+					case "true":
+						respawn = true;
+						break;
+					case "false":
+						respawn = false;
+						break;
+					default:
+						p.sendMessage(WSConfig.getAdminPrefix()+"§6/"+label+" <true|false>");
+						return true;
 				}
 			}
 
