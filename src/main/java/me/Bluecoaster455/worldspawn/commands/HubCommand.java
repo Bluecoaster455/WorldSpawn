@@ -1,5 +1,6 @@
 package me.bluecoaster455.worldspawn.commands;
 
+import me.bluecoaster455.worldspawn.WorldSpawn;
 import me.bluecoaster455.worldspawn.config.WSConfig;
 
 import org.bukkit.Location;
@@ -29,9 +30,7 @@ public class HubCommand implements CommandExecutor{
 				return true;
 			}
 
-			p.sendMessage(WSConfig.getMainPrefix()+WSConfig.getMessage("hub-spawning"));
-			p.teleport(spawn);
-			
+			WorldSpawn.getSpawnDelaySvc().delayTeleportHub(p, WSConfig.getHubDelayTime());
 		}
 		else{
 			sender.sendMessage(WSConfig.getErrorPrefix()+WSConfig.getMessage("command-no-permission"));

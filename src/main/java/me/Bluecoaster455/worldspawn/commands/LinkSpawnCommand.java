@@ -23,7 +23,7 @@ public class LinkSpawnCommand implements CommandExecutor{
 		if(p.hasPermission("worldspawn.admin")){
 			
 			if(args.length < 1){
-				p.sendMessage(WSConfig.getAdminPrefix()+"�6/"+label+" <world>");
+				p.sendMessage(WSConfig.getAdminPrefix()+"§6/"+label+" <world>");
 				return true;
 			}
 			

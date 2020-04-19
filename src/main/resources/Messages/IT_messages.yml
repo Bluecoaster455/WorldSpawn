@@ -55,6 +55,10 @@ spawn-delete-success: '&aSpawn deleted for &e%w &a!'
 #%t = ritardo in secondi
 spawning-delay-message: '&aSpawning a &e%w in %t secondi...'
 
+#Shown when using /hub with a delay
+#WHERE %t = delay in seconds
+spawning-hub-delay-message: '&aSpawning to Hub in %t seconds...'
+
 #Mostrato quando si riproduce in un altro mondo
 #%w = nome Mondiale
 spawning-message: '&aSpawning a &e%w&a...'

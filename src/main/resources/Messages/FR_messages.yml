@@ -55,6 +55,10 @@ spawn-delete-success: '&aSpawn supprimé pour &e%w &a!'
 #   %t = delai en secondes
 spawning-delay-message: '&aTéléportation à &e%w dans %t secondes...'
 
+#s'affiche quand le joueur se téléporte avec un délai
+#OÙ %t = delai en secondes
+spawning-hub-delay-message: '&aTéléportation au Hub dans %t secondes...'
+
 #S'affiche quand le joueur se téléporte
 #OÙ %w = Le nom du monde
 spawning-message: '&aTéléportation à &e%w&a en cours...'

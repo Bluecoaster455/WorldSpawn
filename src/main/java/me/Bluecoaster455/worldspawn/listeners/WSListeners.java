@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import me.bluecoaster455.worldspawn.config.WSConfig;
+import me.bluecoaster455.worldspawn.models.SpawnWorld;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -29,9 +30,9 @@ public class WSListeners implements Listener{
 			return;
 		}
 		if(WSConfig.isSpawnOnJoin()){
-			Location loc = WSConfig.getWorldSpawn(p.getWorld().getName());
+			SpawnWorld loc = WSConfig.getWorldSpawn(p.getWorld().getName());
 			if(loc != null) {
-				p.teleport(loc);
+				p.teleport(loc.getLocation());
 			}
 			return;
 		}
@@ -45,11 +46,18 @@ public class WSListeners implements Listener{
 	
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onPlayerRespawn(PlayerRespawnEvent evt){
+		Boolean respawn = WSConfig.isSpawnOnRespawn();
+
 		Player p = evt.getPlayer();
 		Location deathlocation = p.getLocation();
-		Location respawnLocation = WSConfig.getWorldSpawn(deathlocation.getWorld().getName());
-		if(respawnLocation != null) {
-			evt.setRespawnLocation(respawnLocation);
+		SpawnWorld respawnLocation = WSConfig.getWorldSpawn(deathlocation.getWorld().getName());
+
+		if(respawnLocation.isRespawn() != null){
+			respawn = respawnLocation.isRespawn();
+		}
+
+		if(respawnLocation != null && respawn) {
+			evt.setRespawnLocation(respawnLocation.getLocation());
 		}
 	}
 	

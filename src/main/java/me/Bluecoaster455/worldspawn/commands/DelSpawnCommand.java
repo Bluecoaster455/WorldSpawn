@@ -37,7 +37,7 @@ public class DelSpawnCommand implements CommandExecutor{
 				}
 			}
 			
-			Location spawnloc = WSConfig.existsSpawn(pWorld) ? WSConfig.getWorldSpawn(pWorld) : null;
+			Location spawnloc = WSConfig.existsSpawn(pWorld) ? WSConfig.getWorldSpawn(pWorld).getLocation() : null;
 			
 			if(spawnloc == null){
 				p.sendMessage(WSConfig.getAdminPrefix()+WSConfig.getMessage("no-spawn-world"));

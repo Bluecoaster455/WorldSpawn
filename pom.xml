@@ -18,7 +18,6 @@
 	</properties>
 
   <dependencies>
-
 		<!--BUKKIT/SPIGOT -->
 		<dependency>
 			<groupId>org.bukkit</groupId>
@@ -27,7 +26,6 @@
 			<version>1.8.8-R0.1-SNAPSHOT</version>
 			<systemPath>${basedir}/libs/spigot-1.8.8.jar</systemPath>
 		</dependency>
-
   </dependencies>
 
   <build>

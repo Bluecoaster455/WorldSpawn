@@ -2,6 +2,7 @@ package me.bluecoaster455.worldspawn.commands;
 
 import me.bluecoaster455.worldspawn.WorldSpawn;
 import me.bluecoaster455.worldspawn.config.WSConfig;
+import me.bluecoaster455.worldspawn.models.SpawnWorld;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -26,7 +27,7 @@ public class SpawnCommand implements CommandExecutor{
 		if(p.hasPermission("worldspawn.use")){
 			
 			Location loc = p.getLocation();
-			Location spawn = WSConfig.getWorldSpawn(loc.getWorld().getName());
+			SpawnWorld spawn = WSConfig.getWorldSpawn(loc.getWorld().getName());
 			
 			if(spawn == null){
 				p.sendMessage(WSConfig.getErrorPrefix()+WSConfig.getMessage("no-spawn-world"));

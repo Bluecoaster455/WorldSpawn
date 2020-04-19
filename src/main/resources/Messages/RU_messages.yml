@@ -55,6 +55,10 @@ spawn-delete-success: '&aТочка спавна удалена в мире &e%w
 #%t = задержка в секундах
 spawning-delay-message: '&aНЕ ДВИГАЙТЕСЬ! Телепортация на спавн &e%w через %t секунд...'
 
+#Shown when using /hub with a delay
+#WHERE %t = delay in seconds
+spawning-hub-delay-message: '&aSpawning to Hub in %t seconds...'
+
 #Сообщение телепортирования на спавн
 #%w = название мира
 spawning-message: '&aТелепортация на спавн мира &e%w&a...'

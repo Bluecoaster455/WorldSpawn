@@ -13,9 +13,17 @@ hub-on-join: true
 #If a world does not have a spawn, the player will spawn at hub
 spawn-on-join: false
 
+#Spawns the player to world spawn when respawning (Is priority over hub)
+#If a world does not have a spawn, the player will spawn at hub
+spawn-on-respawn: true
+
 #How long (in seconds) does it take to spawn the player after running
 #the command? (0 = disable)
 spawn-delay: 0
+
+#How long (in seconds) does it take to teleport the player to the hub after running
+#the command? (0 = disable)
+hub-delay: 0
 
 #WARNING: If you do not have a world called "world", you may experience some console errors.
 #         If you are experiencing console errors, shut down the server and rename the "world"

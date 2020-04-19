@@ -55,6 +55,10 @@ spawn-delete-success: '&aSpawn für &e%w &a!'
 #%t = Verzögerung in Sekunden
 spawning-delay-message: '&aSpawning to &e%w im %t sekunden...'
 
+#Shown when using /hub with a delay
+#WHERE %t = delay in seconds
+spawning-hub-delay-message: '&aSpawning to Hub in %t seconds...'
+
 #Gezeigt beim Laichen in eine andere Welt
 #%w = weltname
 spawning-message: '&aSpawning to &e%w&a...'

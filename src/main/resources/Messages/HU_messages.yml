@@ -55,6 +55,10 @@ spawn-delete-success: '&aA spawn törölve a(z) &e%w&a világból!'
 #      %t = késleltetés másodpercekben
 spawning-delay-message: '&aTeleportálás a(z) &e%w&a világba&e %t&a másodpercen belül...'
 
+#Shown when using /hub with a delay
+#WHERE %t = delay in seconds
+spawning-hub-delay-message: '&aSpawning to Hub in %t seconds...'
+
 #Mutatott, ha spawn egy másik világba
 #AHOL %w = világ név
 spawning-message: '&aTeleportálás a(z) &e%w&a világba...'
