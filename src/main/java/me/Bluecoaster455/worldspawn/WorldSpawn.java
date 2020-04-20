@@ -55,7 +55,7 @@ public class WorldSpawn extends JavaPlugin implements Listener{
 		Bukkit.getPluginManager().registerEvents(gSDSvc, this);
 		
 		getLogger().info("Hello server!");
-		getLogger().info("World Spawn by Bluecoaster455 v1.1");
+		getLogger().info("World Spawn by Bluecoaster455 v"+getDescription().getVersion());
 		
 	}
 	

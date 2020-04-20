@@ -63,20 +63,28 @@ public class WSConfig {
 		hub_delay = plugin.getConfig().getInt("hub-delay", 0);
 		lang = plugin.getConfig().getString("language", "EN");
 
+		reloadMessages(plugin);
+
 		gHubLocation = null;
 		gWorldSpawns = new HashMap<>();
 
-		World hubworld = Bukkit.getWorld(plugin.getConfig().getString("hub.world", "world"));
+		String hubworldname = plugin.getConfig().getString("hub.world", "world");
+		World hubworld = Bukkit.getWorld(hubworldname);
 		double hubx = plugin.getConfig().getDouble("hub.x", 0.0);
 		double huby = plugin.getConfig().getDouble("hub.y", 80.0);
 		double hubz = plugin.getConfig().getDouble("hub.z", 0.0);
 		float hubyaw = (float) plugin.getConfig().getDouble("hub.yaw", 90);
 		float hubpitch = (float) plugin.getConfig().getDouble("hub.pitch", 0.0);
+		
+		if(hubworld == null){
+			Bukkit.getConsoleSender().sendMessage(WSConfig.getErrorPrefix() + "[!] [!] [!] World \""+hubworldname+"\" does not exist!");
+		}
 
 		gHubLocation = new Location(hubworld, hubx, huby, hubz, hubyaw, hubpitch);
 
 		for (String aspawn : plugin.getConfig().getConfigurationSection("spawns").getKeys(false)) {
-			World spawnworld = Bukkit.getWorld(plugin.getConfig().getString("spawns." + aspawn + ".world"));
+			String worldname = plugin.getConfig().getString("spawns." + aspawn + ".world");
+			World spawnworld = Bukkit.getWorld(worldname);
 			double spawnx = plugin.getConfig().getDouble("spawns." + aspawn + ".x");
 			double spawny = plugin.getConfig().getDouble("spawns." + aspawn + ".y");
 			double spawnz = plugin.getConfig().getDouble("spawns." + aspawn + ".z");
@@ -88,11 +96,13 @@ public class WSConfig {
 				respawn = plugin.getConfig().getBoolean("spawns." + aspawn + ".spawn-on-respawn");
 			}
 
+			if(spawnworld == null){
+				Bukkit.getConsoleSender().sendMessage(WSConfig.getErrorPrefix() + "[!] [!] [!] World \""+worldname+"\" does not exist!");
+			}
+
 			Location location = new Location(spawnworld, spawnx, spawny, spawnz, spawnyaw, spawnpitch);
 			gWorldSpawns.put(aspawn, new SpawnWorld(location, respawn));
 		}
-
-		reloadMessages(plugin);
 
 		if (isHubEnabled()) {
 			Bukkit.getPluginCommand("hub").setExecutor(new HubCommand());
@@ -192,14 +202,23 @@ public class WSConfig {
 	}
 	
 	public static Location getHub(){
-		return gHubLocation;
+		return gHubLocation == null || gHubLocation.getWorld() == null ? null : gHubLocation;
 	}
 	
 	public static SpawnWorld getWorldSpawn(String pWorldName){
 		if(existsSpawn(pWorldName)){
-			return gWorldSpawns.get(pWorldName);
+			SpawnWorld spawn = gWorldSpawns.get(pWorldName);
+			return spawn.getLocation().getWorld() != null ? spawn : null;
 		}
-		return new SpawnWorld(getHub(), WSConfig.isSpawnOnRespawn());
+
+		if(getHub() != null){
+			if(getHub().getWorld() != null)
+				return new SpawnWorld(getHub(), WSConfig.isSpawnOnRespawn());
+			else
+				return null;
+		}
+
+		return null;
 	}
 	
 	public static void setHub(Location pLocation){
