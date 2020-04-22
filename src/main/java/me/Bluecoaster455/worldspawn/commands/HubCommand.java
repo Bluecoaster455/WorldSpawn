@@ -14,7 +14,7 @@ public class HubCommand implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		if(!(sender instanceof Player)){
+		if(!(sender instanceof Player)){ 
 			sender.sendMessage(WSConfig.getErrorPrefix()+WSConfig.getMessage("not-a-player-error"));
 			return true;
 		}
