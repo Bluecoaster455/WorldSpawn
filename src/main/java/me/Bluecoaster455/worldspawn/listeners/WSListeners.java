@@ -3,7 +3,6 @@ package me.bluecoaster455.worldspawn.listeners;
 import me.bluecoaster455.worldspawn.config.WSConfig;
 import me.bluecoaster455.worldspawn.models.SpawnWorld;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,24 +12,24 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class WSListeners implements Listener{
 	
-	@EventHandler
+	@EventHandler(priority=EventPriority.LOWEST)
 	public void onPlayerJoin(PlayerJoinEvent evt){
 		Player p = evt.getPlayer();
 		if(WSConfig.isHubOnJoin()){
-			Location loc = WSConfig.getHub();
-			if(loc != null) {
-				p.teleport(loc);
+			SpawnWorld hub = WSConfig.getHub();
+			if(hub != null && hub.worldExists()) {
+				p.teleport(hub.getLocation());
 			}
 		}
 		else if(WSConfig.isSpawnOnJoin()){
-			SpawnWorld loc = WSConfig.getWorldSpawn(p.getWorld().getName());
-			if(loc != null) {
-				p.teleport(loc.getLocation());
+			SpawnWorld spawn = WSConfig.getWorldSpawn(p.getWorld().getName());
+			if(spawn != null && spawn.worldExists()) {
+				p.teleport(spawn.getLocation());
 			}
 		}
 	}
 	
-	@EventHandler(priority=EventPriority.HIGHEST)
+	@EventHandler(priority=EventPriority.LOWEST)
 	public void onPlayerRespawn(PlayerRespawnEvent evt){
 		Boolean respawn = WSConfig.isSpawnOnRespawn();
 		SpawnWorld respawnLocation = WSConfig.getWorldSpawn(evt.getPlayer().getLocation().getWorld().getName());

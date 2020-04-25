@@ -2,8 +2,8 @@ package me.bluecoaster455.worldspawn.commands;
 
 import me.bluecoaster455.worldspawn.WorldSpawn;
 import me.bluecoaster455.worldspawn.config.WSConfig;
+import me.bluecoaster455.worldspawn.models.SpawnWorld;
 
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,9 +23,9 @@ public class HubCommand implements CommandExecutor{
 		
 		if(p.hasPermission("worldspawn.use")){
 			
-			Location spawn = WSConfig.getHub();
+			SpawnWorld hub = WSConfig.getHub();
 			
-			if(spawn == null){
+			if(hub == null || !hub.worldExists()){
 				p.sendMessage(WSConfig.getErrorPrefix()+WSConfig.getMessage("hub-not-exists"));
 				return true;
 			}

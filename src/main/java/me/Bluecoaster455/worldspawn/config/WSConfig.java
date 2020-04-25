@@ -13,14 +13,13 @@ import me.bluecoaster455.worldspawn.models.SpawnWorld;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class WSConfig {
 
 	private static HashMap<String, SpawnWorld> gWorldSpawns;
-	private static Location gHubLocation;
+	private static SpawnWorld gHubLocation;
 
 	private static boolean hub_enabled = true;
 	private static boolean hub_on_join = false;
@@ -69,22 +68,16 @@ public class WSConfig {
 		gWorldSpawns = new HashMap<>();
 
 		String hubworldname = plugin.getConfig().getString("hub.world", "world");
-		World hubworld = Bukkit.getWorld(hubworldname);
 		double hubx = plugin.getConfig().getDouble("hub.x", 0.0);
 		double huby = plugin.getConfig().getDouble("hub.y", 80.0);
 		double hubz = plugin.getConfig().getDouble("hub.z", 0.0);
 		float hubyaw = (float) plugin.getConfig().getDouble("hub.yaw", 90);
 		float hubpitch = (float) plugin.getConfig().getDouble("hub.pitch", 0.0);
-		
-		if(hubworld == null){
-			Bukkit.getConsoleSender().sendMessage(WSConfig.getErrorPrefix() + "[!] [!] [!] World \""+hubworldname+"\" does not exist!");
-		}
 
-		gHubLocation = new Location(hubworld, hubx, huby, hubz, hubyaw, hubpitch);
+		gHubLocation = new SpawnWorld(hubworldname, hubx, huby, hubz, hubyaw, hubpitch, null);
 
 		for (String aspawn : plugin.getConfig().getConfigurationSection("spawns").getKeys(false)) {
 			String worldname = plugin.getConfig().getString("spawns." + aspawn + ".world");
-			World spawnworld = Bukkit.getWorld(worldname);
 			double spawnx = plugin.getConfig().getDouble("spawns." + aspawn + ".x");
 			double spawny = plugin.getConfig().getDouble("spawns." + aspawn + ".y");
 			double spawnz = plugin.getConfig().getDouble("spawns." + aspawn + ".z");
@@ -96,12 +89,8 @@ public class WSConfig {
 				respawn = plugin.getConfig().getBoolean("spawns." + aspawn + ".spawn-on-respawn");
 			}
 
-			if(spawnworld == null){
-				Bukkit.getConsoleSender().sendMessage(WSConfig.getErrorPrefix() + "[!] [!] [!] World \""+worldname+"\" does not exist!");
-			}
-
-			Location location = new Location(spawnworld, spawnx, spawny, spawnz, spawnyaw, spawnpitch);
-			gWorldSpawns.put(aspawn, new SpawnWorld(location, respawn));
+			SpawnWorld spawn = new SpawnWorld(worldname, spawnx, spawny, spawnz, spawnyaw, spawnpitch, respawn);
+			gWorldSpawns.put(aspawn, spawn);
 		}
 
 		if (isHubEnabled()) {
@@ -201,8 +190,8 @@ public class WSConfig {
 		return hub_delay;
 	}
 	
-	public static Location getHub(){
-		return gHubLocation == null || gHubLocation.getWorld() == null ? null : gHubLocation;
+	public static SpawnWorld getHub(){
+		return gHubLocation;
 	}
 	
 	public static SpawnWorld getWorldSpawn(String pWorldName){
@@ -211,9 +200,9 @@ public class WSConfig {
 			return spawn.getLocation().getWorld() != null ? spawn : null;
 		}
 
-		if(getHub() != null){
-			if(getHub().getWorld() != null)
-				return new SpawnWorld(getHub(), WSConfig.isSpawnOnRespawn());
+		if(gHubLocation != null){
+			if(gHubLocation.worldExists())
+				return gHubLocation;
 			else
 				return null;
 		}
@@ -229,7 +218,7 @@ public class WSConfig {
 		conf.set("hub.z", pLocation.getZ());
 		conf.set("hub.yaw", pLocation.getYaw());
 		conf.set("hub.pitch", pLocation.getPitch());
-		gHubLocation = pLocation;
+		gHubLocation = new SpawnWorld(pLocation.getWorld().getName(), pLocation.toVector(), pLocation.getYaw(), pLocation.getPitch(), null);
 		setSpawn(pLocation.getWorld().getName(), pLocation, null);
 	}
 	
@@ -265,7 +254,8 @@ public class WSConfig {
 		conf.set("spawns."+pWorldName+".z", pLocation.getZ());
 		conf.set("spawns."+pWorldName+".yaw", pLocation.getYaw());
 		conf.set("spawns."+pWorldName+".pitch", pLocation.getPitch());
-		gWorldSpawns.put(pWorldName, new SpawnWorld(pLocation, pRespawn));
+		SpawnWorld spawn = new SpawnWorld(pWorldName, pLocation.toVector(), pLocation.getYaw(), pLocation.getPitch(), pRespawn);
+		gWorldSpawns.put(pWorldName, spawn);
 		save();
 	}
 	
