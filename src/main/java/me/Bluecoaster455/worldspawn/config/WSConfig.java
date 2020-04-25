@@ -76,6 +76,8 @@ public class WSConfig {
 
 		gHubLocation = new SpawnWorld(hubworldname, hubx, huby, hubz, hubyaw, hubpitch, null);
 
+		Bukkit.getConsoleSender().sendMessage(WSConfig.getMainPrefix()+"Hub loaded!");
+
 		for (String aspawn : plugin.getConfig().getConfigurationSection("spawns").getKeys(false)) {
 			String worldname = plugin.getConfig().getString("spawns." + aspawn + ".world");
 			double spawnx = plugin.getConfig().getDouble("spawns." + aspawn + ".x");
@@ -88,6 +90,8 @@ public class WSConfig {
 			if(plugin.getConfig().isSet("spawns." + aspawn + ".spawn-on-respawn")){
 				respawn = plugin.getConfig().getBoolean("spawns." + aspawn + ".spawn-on-respawn");
 			}
+
+			Bukkit.getConsoleSender().sendMessage(WSConfig.getMainPrefix()+"Spawn for \""+worldname+"\" loaded!");
 
 			SpawnWorld spawn = new SpawnWorld(worldname, spawnx, spawny, spawnz, spawnyaw, spawnpitch, respawn);
 			gWorldSpawns.put(aspawn, spawn);
@@ -254,7 +258,7 @@ public class WSConfig {
 		conf.set("spawns."+pWorldName+".z", pLocation.getZ());
 		conf.set("spawns."+pWorldName+".yaw", pLocation.getYaw());
 		conf.set("spawns."+pWorldName+".pitch", pLocation.getPitch());
-		SpawnWorld spawn = new SpawnWorld(pWorldName, pLocation.toVector(), pLocation.getYaw(), pLocation.getPitch(), pRespawn);
+		SpawnWorld spawn = new SpawnWorld(pLocation.getWorld().getName(), pLocation.toVector(), pLocation.getYaw(), pLocation.getPitch(), pRespawn);
 		gWorldSpawns.put(pWorldName, spawn);
 		save();
 	}
