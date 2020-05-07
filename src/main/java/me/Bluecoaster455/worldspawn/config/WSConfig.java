@@ -38,7 +38,7 @@ public class WSConfig {
 	public static void reload(WorldSpawn plugin) {
 		plugin.saveDefaultConfig();
 
-		String[] langs = new String[] { "EN", "DE", "ES", "IT", "RU", "FR", "HU" };
+		String[] langs = new String[] { "EN", "DE", "ES", "IT", "RU", "FR", "HU", "PL" };
 
 		File msgFolder = new File(plugin.getDataFolder(), "Messages");
 

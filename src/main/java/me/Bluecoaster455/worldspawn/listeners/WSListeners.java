@@ -42,7 +42,7 @@ public class WSListeners implements Listener{
 			respawn = respawnLocation.isRespawn();
 		}
 
-		if(respawnLocation != null && respawn) { // If the player gets relocated when respawning
+		if((respawn && respawnLocation != null) || (!respawn && respawnLocation != null && !evt.isBedSpawn())) { // If the player gets relocated when respawning 
 			evt.setRespawnLocation(respawnLocation.getLocation());
 		}
 	}
