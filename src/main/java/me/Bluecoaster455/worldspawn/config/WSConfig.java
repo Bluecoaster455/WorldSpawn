@@ -201,7 +201,7 @@ public class WSConfig {
 	public static SpawnWorld getWorldSpawn(String pWorldName){
 		if(existsSpawn(pWorldName)){
 			SpawnWorld spawn = gWorldSpawns.get(pWorldName);
-			return spawn.getLocation().getWorld() != null ? spawn : null;
+			return spawn.worldExists() ? spawn : null;
 		}
 
 		if(gHubLocation != null){

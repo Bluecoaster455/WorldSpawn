@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class WSListeners implements Listener{
 	
-	@EventHandler(priority=EventPriority.LOWEST)
+	@EventHandler(priority=EventPriority.LOW)
 	public void onPlayerJoin(PlayerJoinEvent evt){
 		Player p = evt.getPlayer();
 		if(WSConfig.isHubOnJoin()){
@@ -29,10 +29,10 @@ public class WSListeners implements Listener{
 		}
 	}
 	
-	@EventHandler(priority=EventPriority.LOWEST)
+	@EventHandler(priority=EventPriority.NORMAL)
 	public void onPlayerRespawn(PlayerRespawnEvent evt){
 		Boolean respawn = WSConfig.isSpawnOnRespawn();
-		SpawnWorld respawnLocation = WSConfig.getWorldSpawn(evt.getPlayer().getLocation().getWorld().getName());
+		SpawnWorld respawnLocation = WSConfig.getWorldSpawn(evt.getRespawnLocation().getWorld().getName());
 
 		if(respawnLocation == null){ // No spawn is available in the current world and no hub location defined
 			return;
@@ -42,7 +42,7 @@ public class WSListeners implements Listener{
 			respawn = respawnLocation.isRespawn();
 		}
 
-		if((respawn && respawnLocation != null) || (!respawn && respawnLocation != null && !evt.isBedSpawn())) { // If the player gets relocated when respawning 
+		if(respawnLocation != null && (respawn || (!respawn && !evt.isBedSpawn()))) { // If the player gets relocated when respawning
 			evt.setRespawnLocation(respawnLocation.getLocation());
 		}
 	}
