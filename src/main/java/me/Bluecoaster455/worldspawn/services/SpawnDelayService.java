@@ -13,18 +13,17 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.bluecoaster455.worldspawn.WorldSpawn;
 import me.bluecoaster455.worldspawn.config.WSConfig;
-import me.bluecoaster455.worldspawn.models.SpawnWorld;
+import me.bluecoaster455.worldspawn.models.Hub;
+import me.bluecoaster455.worldspawn.models.Permissions;
+import me.bluecoaster455.worldspawn.models.Spawn;
 
 public class SpawnDelayService implements Listener {
 	
 	//Player uuid : delayer id
-	private HashMap<UUID, Integer> gTeleporting;
+	private static HashMap<UUID, Integer> gTeleporting = new HashMap<>();
+	private static HashMap<UUID, Location> gBlockTeleporting = new HashMap<>();
 	
-	public SpawnDelayService() {
-		gTeleporting = new HashMap<>();
-	}
-	
-	public void cancelTeleport(Player pPlayer) {
+	public static void cancelTeleport(Player pPlayer) {
 		UUID uuid = pPlayer.getUniqueId();
 		
 		if(gTeleporting.containsKey(uuid)) {
@@ -32,13 +31,13 @@ public class SpawnDelayService implements Listener {
 			Bukkit.getScheduler().cancelTask(id);
 			pPlayer.sendMessage(WSConfig.getMainPrefix()+WSConfig.getMessage("spawning-cancelled"));
 			gTeleporting.remove(uuid);
+			gBlockTeleporting.remove(uuid);
 		}
-		
 	}
 	
-	public void teleport(Player pPlayer) {
+	public static void teleport(Player pPlayer) {
 		Location loc = pPlayer.getLocation();
-		SpawnWorld spawn = WSConfig.getWorldSpawn(loc.getWorld().getName());
+		Spawn spawn = WorldSpawnService.getSpawn(loc.getWorld().getName());
 
 		if(spawn == null || !spawn.worldExists()){
 			return;
@@ -50,51 +49,61 @@ public class SpawnDelayService implements Listener {
 		if(gTeleporting.containsKey(pPlayer.getUniqueId())) {
 			gTeleporting.remove(pPlayer.getUniqueId());
 		}
+		
+		if(gBlockTeleporting.containsKey(pPlayer.getUniqueId())) {
+			gBlockTeleporting.remove(pPlayer.getUniqueId());
+		}
 	}
 	
-	public void teleportHub(Player pPlayer) {
-		SpawnWorld hub = WSConfig.getHub();
+	public static void teleportHub(Player pPlayer) {
+		Hub hub = WorldSpawnService.getHub();
 
 		if(hub == null || !hub.worldExists()){
 			return;
 		}
 		
-		pPlayer.sendMessage(WSConfig.getMainPrefix()+WSConfig.getMessage("hub-spawning"));
+		pPlayer.sendMessage(WSConfig.getMainPrefix() + WSConfig.getMessage("hub-spawning"));
 		pPlayer.teleport(hub.getLocation());
 		
 		if(gTeleporting.containsKey(pPlayer.getUniqueId())) {
 			gTeleporting.remove(pPlayer.getUniqueId());
 		}
+		
+		if(gBlockTeleporting.containsKey(pPlayer.getUniqueId())) {
+			gBlockTeleporting.remove(pPlayer.getUniqueId());
+		}
 	}
 	
-	public void delayTeleport(Player pPlayer, int pTime) {
+	public static void delayTeleport(Player pPlayer) {
+		int time = WSConfig.getSpawnDelayTime();
 		UUID uuid = pPlayer.getUniqueId();
 
 		Location loc = pPlayer.getLocation();
-		SpawnWorld spawn = WSConfig.getWorldSpawn(loc.getWorld().getName());
+		Spawn spawn = WorldSpawnService.getSpawn(loc.getWorld().getName());
 		
 		if(gTeleporting.containsKey(uuid)) {
 			int id = gTeleporting.get(uuid);
 			Bukkit.getScheduler().cancelTask(id);
 		}
 		
-		if(pPlayer.hasPermission("worldspawn.bypass.delay")) {
+		if(Permissions.hasPermission(pPlayer, Permissions.BYPASS_DELAY)) {
 			teleport(pPlayer);
-			return;
+		} else {
+			int pid = Bukkit.getScheduler().scheduleSyncDelayedTask(WorldSpawn.getPlugin(), () -> {
+				teleport(pPlayer);
+			}, time*20);
+	
+			if(time > 0){
+				pPlayer.sendMessage(WSConfig.getMainPrefix() + WSConfig.getMessage("spawning-delay-message").replace("%t", time+"").replace("%w", spawn.getLocation().getWorld().getName()));
+			}
+	
+			gTeleporting.put(uuid, pid);
+			gBlockTeleporting.put(uuid, pPlayer.getLocation().getBlock().getLocation());
 		}
-		
-		int pid = Bukkit.getScheduler().scheduleSyncDelayedTask(WorldSpawn.getPlugin(), () -> {
-			teleport(pPlayer);
-		}, pTime*20);
-
-		if(pTime > 0){
-			pPlayer.sendMessage(WSConfig.getMainPrefix()+WSConfig.getMessage("spawning-delay-message").replace("%t", pTime+"").replace("%w", spawn.getLocation().getWorld().getName()));
-		}
-
-		gTeleporting.put(uuid, pid);
 	}
 
-	public void delayTeleportHub(Player pPlayer, int pTime){
+	public static void delayTeleportHub(Player pPlayer){
+		int time = WSConfig.getSpawnDelayTime();
 		UUID uuid = pPlayer.getUniqueId();
 
 		if(gTeleporting.containsKey(uuid)) {
@@ -102,20 +111,21 @@ public class SpawnDelayService implements Listener {
 			Bukkit.getScheduler().cancelTask(id);
 		}
 		
-		if(pPlayer.hasPermission("worldspawn.bypass.delay")) {
+		if(Permissions.hasPermission(pPlayer, Permissions.BYPASS_DELAY)) {
 			teleportHub(pPlayer);
 			return;
 		}
 
 		int pid = Bukkit.getScheduler().scheduleSyncDelayedTask(WorldSpawn.getPlugin(), () -> {
 			teleportHub(pPlayer);
-		}, pTime*20);
+		}, time * 20);
 
-		if(pTime > 0){
-			pPlayer.sendMessage(WSConfig.getMainPrefix()+WSConfig.getMessage("spawning-hub-delay-message").replace("%t", pTime+""));
+		if(time > 0){
+			pPlayer.sendMessage(WSConfig.getMainPrefix() + WSConfig.getMessage("spawning-hub-delay-message").replace("%t", time+""));
 		}
 		
 		gTeleporting.put(uuid, pid);
+		gBlockTeleporting.put(uuid, pPlayer.getLocation().getBlock().getLocation());
 	}
 	
 	@EventHandler
@@ -129,8 +139,12 @@ public class SpawnDelayService implements Listener {
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent evt) {
 		Player p = evt.getPlayer();
-		if(gTeleporting.containsKey(p.getUniqueId())) {
-			cancelTeleport(p);
+		if(gTeleporting.containsKey(p.getUniqueId()) && gBlockTeleporting.containsKey(p.getUniqueId())) {
+			Location teleportBlock = gBlockTeleporting.get(p.getUniqueId());
+			Location playerBlockLocation = p.getLocation().getBlock().getLocation();
+			if(!teleportBlock.equals(playerBlockLocation)){
+				cancelTeleport(p);
+			}
 		}
 	}
 	

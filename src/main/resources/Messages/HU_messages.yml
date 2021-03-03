@@ -50,6 +50,11 @@ set-spawn-success: '&aA spawn beállítva a(z) %w&a világban!'
 #AHOL %w = világ név
 spawn-delete-success: '&aA spawn törölve a(z) &e%w&a világból!'
 
+#1.5 (NOT TRANSLATED!)
+#Shown when failing to delete a spawn from %w world
+#WHERE %w = world name
+spawn-delete-fail: '&aUnable to delete spawn for &e%w &a!'
+
 #A késleltetés /spawn használatakor látható
 #AHOL %w = világ név
 #      %t = késleltetés másodpercekben
@@ -65,3 +70,13 @@ spawning-message: '&aTeleportálás a(z) &e%w&a világba...'
 
 #Akkor jelenik meg, amikor az spawn megszűnik
 spawning-cancelled: '&cA teleportálás megszakítva!'
+
+#1.5 (NOT TRANSLATED!)
+#Shown when successfully configuring a spawn from %w world
+#WHERE %w = world name
+spawn-configure-success: '&aSpawn configured for &e%w &a!'
+
+#1.5 (NOT TRANSLATED!)
+#Shown when failing to configure a spawn from %w world
+#WHERE %w = world name
+spawn-configure-fail: '&aUnable to configure spawn for &e%w &a!'

@@ -1,6 +1,8 @@
 package me.bluecoaster455.worldspawn.commands;
 
 import me.bluecoaster455.worldspawn.config.WSConfig;
+import me.bluecoaster455.worldspawn.models.Permissions;
+import me.bluecoaster455.worldspawn.services.WorldSpawnService;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -14,30 +16,29 @@ public class LinkSpawnCommand implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if(!(sender instanceof Player)){
-			sender.sendMessage(WSConfig.getErrorPrefix()+WSConfig.getMessage("not-a-player-error"));
+			sender.sendMessage(WSConfig.getErrorPrefix() + WSConfig.getMessage("not-a-player-error"));
 			return true;
 		}
 		
 		Player p = (Player)sender;
 		
-		if(p.hasPermission("worldspawn.admin")){
+		if(Permissions.hasPermission(p, Permissions.ADMIN)){
 			
 			if(args.length < 1){
-				p.sendMessage(WSConfig.getAdminPrefix()+"§6/"+label+" <world>");
+				p.sendMessage(WSConfig.getAdminPrefix() + "§6/"+label+" <world>");
 				return true;
 			}
 			
 			Location loc = p.getLocation();
-			int result = WSConfig.setSpawnLink(loc.getWorld().getName(), args[0]);
-			if(result == 0){
-				p.sendMessage(WSConfig.getAdminPrefix()+WSConfig.getMessage("spawn-link-fail").replace("%w", args[0]));
-			}
-			else if(result == 1){
-				p.sendMessage(WSConfig.getAdminPrefix()+WSConfig.getMessage("spawn-link-success").replace("%w", loc.getWorld().getName()).replace("%t", args[0]));
+			boolean result = WorldSpawnService.setSpawnLink(loc.getWorld().getName(), args[0]);
+			if(!result){
+				p.sendMessage(WSConfig.getAdminPrefix() + WSConfig.getMessage("spawn-link-fail").replace("%w", args[0]));
+			} else {
+				p.sendMessage(WSConfig.getAdminPrefix() + WSConfig.getMessage("spawn-link-success").replace("%w", loc.getWorld().getName()).replace("%t", args[0]));
 			}
 		}
 		else{
-			sender.sendMessage(WSConfig.getErrorPrefix()+WSConfig.getMessage("command-no-permission"));
+			sender.sendMessage(WSConfig.getErrorPrefix() + WSConfig.getMessage("command-no-permission"));
 		}
 		
 		return true;

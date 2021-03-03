@@ -1,8 +1,10 @@
 package me.bluecoaster455.worldspawn.commands;
 
-import me.bluecoaster455.worldspawn.WorldSpawn;
 import me.bluecoaster455.worldspawn.config.WSConfig;
-import me.bluecoaster455.worldspawn.models.SpawnWorld;
+import me.bluecoaster455.worldspawn.models.Hub;
+import me.bluecoaster455.worldspawn.models.Permissions;
+import me.bluecoaster455.worldspawn.services.SpawnDelayService;
+import me.bluecoaster455.worldspawn.services.WorldSpawnService;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,16 +23,15 @@ public class HubCommand implements CommandExecutor{
 		
 		Player p = (Player)sender;
 		
-		if(p.hasPermission("worldspawn.use")){
-			
-			SpawnWorld hub = WSConfig.getHub();
+		if(Permissions.hasPermission(p, Permissions.USE)){
+			Hub hub = WorldSpawnService.getHub();
 			
 			if(hub == null || !hub.worldExists()){
 				p.sendMessage(WSConfig.getErrorPrefix()+WSConfig.getMessage("hub-not-exists"));
 				return true;
 			}
 
-			WorldSpawn.getSpawnDelaySvc().delayTeleportHub(p, WSConfig.getHubDelayTime());
+			SpawnDelayService.delayTeleportHub(p);
 		}
 		else{
 			sender.sendMessage(WSConfig.getErrorPrefix()+WSConfig.getMessage("command-no-permission"));

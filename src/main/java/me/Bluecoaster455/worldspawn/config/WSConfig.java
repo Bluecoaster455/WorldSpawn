@@ -9,18 +9,15 @@ import java.util.HashMap;
 
 import me.bluecoaster455.worldspawn.WorldSpawn;
 import me.bluecoaster455.worldspawn.commands.HubCommand;
-import me.bluecoaster455.worldspawn.models.SpawnWorld;
+import me.bluecoaster455.worldspawn.models.Hub;
+import me.bluecoaster455.worldspawn.models.Spawn;
+import me.bluecoaster455.worldspawn.services.WorldSpawnService;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class WSConfig {
-
-	private static HashMap<String, SpawnWorld> gWorldSpawns;
-	private static SpawnWorld gHubLocation;
-
 	private static boolean hub_enabled = true;
 	private static boolean hub_on_join = false;
 	private static boolean spawn_on_join = false;
@@ -64,9 +61,6 @@ public class WSConfig {
 
 		reloadMessages(plugin);
 
-		gHubLocation = null;
-		gWorldSpawns = new HashMap<>();
-
 		String hubworldname = plugin.getConfig().getString("hub.world", "world");
 		double hubx = plugin.getConfig().getDouble("hub.x", 0.0);
 		double huby = plugin.getConfig().getDouble("hub.y", 80.0);
@@ -74,7 +68,7 @@ public class WSConfig {
 		float hubyaw = (float) plugin.getConfig().getDouble("hub.yaw", 90);
 		float hubpitch = (float) plugin.getConfig().getDouble("hub.pitch", 0.0);
 
-		gHubLocation = new SpawnWorld(hubworldname, hubx, huby, hubz, hubyaw, hubpitch, null);
+		WorldSpawnService.setHub(new Hub(hubworldname, hubx, huby, hubz, hubyaw, hubpitch));
 
 		Bukkit.getConsoleSender().sendMessage(WSConfig.getMainPrefix()+"Hub loaded!");
 
@@ -93,8 +87,8 @@ public class WSConfig {
 
 			Bukkit.getConsoleSender().sendMessage(WSConfig.getMainPrefix()+"Spawn for \""+worldname+"\" loaded!");
 
-			SpawnWorld spawn = new SpawnWorld(worldname, spawnx, spawny, spawnz, spawnyaw, spawnpitch, respawn);
-			gWorldSpawns.put(aspawn, spawn);
+			Spawn spawn = new Spawn(worldname, spawnx, spawny, spawnz, spawnyaw, spawnpitch, respawn);
+			WorldSpawnService.setSpawn(aspawn, spawn);
 		}
 
 		if (isHubEnabled()) {
@@ -144,6 +138,11 @@ public class WSConfig {
 		gMessages.put("spawning-message", fMessages.getString("spawning-message", dMessages.getString("spawning-message")));
 		gMessages.put("spawning-cancelled", fMessages.getString("spawning-cancelled", dMessages.getString("spawning-cancelled")));
 		gMessages.put("hub-not-exists", fMessages.getString("hub-not-exists", dMessages.getString("hub-not-exists")));
+		
+		// NEW 1.5
+		gMessages.put("spawn-delete-fail", fMessages.getString("spawn-delete-fail", dMessages.getString("spawn-delete-fail")));
+		gMessages.put("spawn-configure-success", fMessages.getString("spawn-configure-success", dMessages.getString("spawn-configure-success")));
+		gMessages.put("spawn-configure-fail", fMessages.getString("spawn-configure-fail", dMessages.getString("spawn-configure-fail")));
 	}
 	
 	public static String getMainPrefix() {
@@ -192,75 +191,6 @@ public class WSConfig {
 	
 	public static int getHubDelayTime() {
 		return hub_delay;
-	}
-	
-	public static SpawnWorld getHub(){
-		return gHubLocation;
-	}
-	
-	public static SpawnWorld getWorldSpawn(String pWorldName){
-		if(existsSpawn(pWorldName)){
-			SpawnWorld spawn = gWorldSpawns.get(pWorldName);
-			return spawn.worldExists() ? spawn : null;
-		}
-
-		if(gHubLocation != null){
-			if(gHubLocation.worldExists())
-				return gHubLocation;
-			else
-				return null;
-		}
-
-		return null;
-	}
-	
-	public static void setHub(Location pLocation){
-		FileConfiguration conf = WorldSpawn.getPlugin().getConfig();
-		conf.set("hub.world", pLocation.getWorld().getName());
-		conf.set("hub.x", pLocation.getX());
-		conf.set("hub.y", pLocation.getY());
-		conf.set("hub.z", pLocation.getZ());
-		conf.set("hub.yaw", pLocation.getYaw());
-		conf.set("hub.pitch", pLocation.getPitch());
-		gHubLocation = new SpawnWorld(pLocation.getWorld().getName(), pLocation.toVector(), pLocation.getYaw(), pLocation.getPitch(), null);
-		setSpawn(pLocation.getWorld().getName(), pLocation, null);
-	}
-	
-	public static boolean existsSpawn(String pSpawnLocationName){
-		return gWorldSpawns.containsKey(pSpawnLocationName);
-	}
-	
-	public static int setSpawnLink(String pWorldName, String pSpawnLocationName){
-		if(!existsSpawn(pSpawnLocationName)){
-			return 0;
-		}
-		SpawnWorld loc = getWorldSpawn(pSpawnLocationName);
-		setSpawn(pWorldName, loc.getLocation(), loc.isRespawn());
-		return 1;
-	}
-	
-	public static int deleteSpawn(String pSpawnLocationName){
-		if(!existsSpawn(pSpawnLocationName)){
-			return 0;
-		}
-		gWorldSpawns.remove(pSpawnLocationName);
-		WorldSpawn.getPlugin().getConfig().set("spawns."+pSpawnLocationName, null);
-		save();
-		return 1;
-	}
-	
-	public static void setSpawn(String pWorldName, Location pLocation, Boolean pRespawn){
-		FileConfiguration conf = WorldSpawn.getPlugin().getConfig();
-		conf.set("spawns."+pWorldName+".spawn-on-respawn", pRespawn);
-		conf.set("spawns."+pWorldName+".world", pLocation.getWorld().getName());
-		conf.set("spawns."+pWorldName+".x", pLocation.getX());
-		conf.set("spawns."+pWorldName+".y", pLocation.getY());
-		conf.set("spawns."+pWorldName+".z", pLocation.getZ());
-		conf.set("spawns."+pWorldName+".yaw", pLocation.getYaw());
-		conf.set("spawns."+pWorldName+".pitch", pLocation.getPitch());
-		SpawnWorld spawn = new SpawnWorld(pLocation.getWorld().getName(), pLocation.toVector(), pLocation.getYaw(), pLocation.getPitch(), pRespawn);
-		gWorldSpawns.put(pWorldName, spawn);
-		save();
 	}
 	
 }

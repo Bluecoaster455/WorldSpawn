@@ -50,6 +50,11 @@ set-spawn-success: '&aSpawn gesetzt für %w&a!'
 #%w = Weltname
 spawn-delete-success: '&aSpawn für &e%w &a!'
 
+#1.5 (NOT TRANSLATED!)
+#Shown when failing to delete a spawn from %w world
+#WHERE %w = world name
+spawn-delete-fail: '&aUnable to delete spawn for &e%w &a!'
+
 #Gezeigt bei der Verwendung /spawn mit einer Verzögerung
 #%w = Weltname
 #%t = Verzögerung in Sekunden
@@ -65,3 +70,13 @@ spawning-message: '&aSpawning to &e%w&a...'
 
 #Wird angezeigt, wenn das Laichen abgebrochen wird
 spawning-cancelled: '&cSpawning abgebrochen!'
+
+#1.5 (NOT TRANSLATED!)
+#Shown when successfully configuring a spawn from %w world
+#WHERE %w = world name
+spawn-configure-success: '&aSpawn configured for &e%w &a!'
+
+#1.5 (NOT TRANSLATED!)
+#Shown when failing to configure a spawn from %w world
+#WHERE %w = world name
+spawn-configure-fail: '&aUnable to configure spawn for &e%w &a!'

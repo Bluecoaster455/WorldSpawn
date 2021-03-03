@@ -1,6 +1,8 @@
 package me.bluecoaster455.worldspawn.commands;
 
 import me.bluecoaster455.worldspawn.config.WSConfig;
+import me.bluecoaster455.worldspawn.models.Permissions;
+import me.bluecoaster455.worldspawn.services.WorldSpawnService;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -20,9 +22,9 @@ public class SetHubCommand implements CommandExecutor{
 		
 		Player p = (Player)sender;
 		
-		if(p.hasPermission("worldspawn.admin")){
+		if(Permissions.hasPermission(p, Permissions.ADMIN)){
 			Location loc = p.getLocation();
-			WSConfig.setHub(loc);
+			WorldSpawnService.setHub(loc);
 			p.sendMessage(WSConfig.getAdminPrefix()+WSConfig.getMessage("hub-set-success"));
 		}
 		else{

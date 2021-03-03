@@ -50,6 +50,11 @@ set-spawn-success: '&aPunkt odrodzenia ustawiony na %w&a!'
 #WHERE %w = world name
 spawn-delete-success: '&aPunkt odrodzenia usunięty z &e%w &a!'
 
+#1.5 (NOT TRANSLATED!)
+#Shown when failing to delete a spawn from %w world
+#WHERE %w = world name
+spawn-delete-fail: '&aUnable to delete spawn for &e%w &a!'
+
 #Shown when using /spawn with a delay
 #WHERE %w = world name
 #      %t = delay in seconds
@@ -66,3 +71,12 @@ spawning-message: '&aOdrodzenie na &e%w&a...'
 #Shown when the spawning is being cancelled
 spawning-cancelled: '&cOdrodzenie anulowane!'
 
+#1.5 (NOT TRANSLATED!)
+#Shown when successfully configuring a spawn from %w world
+#WHERE %w = world name
+spawn-configure-success: '&aSpawn configured for &e%w &a!'
+
+#1.5 (NOT TRANSLATED!)
+#Shown when failing to configure a spawn from %w world
+#WHERE %w = world name
+spawn-configure-fail: '&aUnable to configure spawn for &e%w &a!'

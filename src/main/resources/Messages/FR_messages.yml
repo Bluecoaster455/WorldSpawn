@@ -50,6 +50,11 @@ set-spawn-success: '&aSpawn fixé pour %w&a!'
 #OÙ %w = Le nom du monde
 spawn-delete-success: '&aSpawn supprimé pour &e%w &a!'
 
+#1.5
+#S'affiche quand la suppression d'un spawn a été un échec.
+#OÙ %w = Le nom du monde
+spawn-delete-fail: '&aÉchec de la suppression du spawn pour &e%w &a!'
+
 #s'affiche quand le joueur se téléporte avec un délai
 #OÙ %w = Le nom du monde
 #   %t = delai en secondes
@@ -66,3 +71,12 @@ spawning-message: '&aTéléportation à &e%w&a en cours...'
 #S'affiche quand la téléportation a été interrompu
 spawning-cancelled: '&cTéléportation annulée!'
 
+#1.5
+#S'affiche quand la configuration d'un spawn a été un succès.
+#OÙ %w = Le nom du monde
+spawn-configure-success: '&aSpawn configuré pour &e%w &a!'
+
+#1.5
+#S'affiche quand la configuration d'un spawn a été un échec.
+#OÙ %w = Le nom du monde
+spawn-configure-fail: '&aÉchec de la configuration du spawn pour &e%w &a!'

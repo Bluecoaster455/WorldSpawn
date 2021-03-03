@@ -1,6 +1,6 @@
 main: me.bluecoaster455.worldspawn.WorldSpawn
 author: Bluecoaster455
-version: 1.4.4
+version: 1.5
 name: WorldSpawn
 commands:
   spawn:
@@ -8,6 +8,6 @@ commands:
   sethub:
   hub:
   linkspawn:
-  spawn:
   delspawn:
   worldspawn:
+  spawnonrespawn:
