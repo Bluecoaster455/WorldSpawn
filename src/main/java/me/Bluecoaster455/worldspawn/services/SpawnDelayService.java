@@ -37,7 +37,7 @@ public class SpawnDelayService implements Listener {
 	
 	public static void teleport(Player pPlayer) {
 		Location loc = pPlayer.getLocation();
-		Spawn spawn = WorldSpawnService.getSpawn(loc.getWorld().getName());
+		Spawn spawn = WorldSpawnService.getSpawn(loc.getWorld().getName(), true);
 
 		if(spawn == null || !spawn.worldExists()){
 			return;
@@ -79,7 +79,7 @@ public class SpawnDelayService implements Listener {
 		UUID uuid = pPlayer.getUniqueId();
 
 		Location loc = pPlayer.getLocation();
-		Spawn spawn = WorldSpawnService.getSpawn(loc.getWorld().getName());
+		Spawn spawn = WorldSpawnService.getSpawn(loc.getWorld().getName(), true);
 		
 		if(gTeleporting.containsKey(uuid)) {
 			int id = gTeleporting.get(uuid);
@@ -103,7 +103,7 @@ public class SpawnDelayService implements Listener {
 	}
 
 	public static void delayTeleportHub(Player pPlayer){
-		int time = WSConfig.getSpawnDelayTime();
+		int time = WSConfig.getHubDelayTime();
 		UUID uuid = pPlayer.getUniqueId();
 
 		if(gTeleporting.containsKey(uuid)) {

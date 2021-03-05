@@ -87,7 +87,7 @@ public class WSConfig {
 
 			Bukkit.getConsoleSender().sendMessage(WSConfig.getMainPrefix()+"Spawn for \""+worldname+"\" loaded!");
 
-			Spawn spawn = new Spawn(worldname, spawnx, spawny, spawnz, spawnyaw, spawnpitch, respawn);
+			Spawn spawn = new Spawn(aspawn, worldname, spawnx, spawny, spawnz, spawnyaw, spawnpitch, respawn);
 			WorldSpawnService.setSpawn(aspawn, spawn);
 		}
 

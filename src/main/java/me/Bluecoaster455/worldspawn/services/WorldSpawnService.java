@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,7 +19,7 @@ import me.bluecoaster455.worldspawn.models.Spawn;
 
 public class WorldSpawnService implements Listener {
   
-	private static HashMap<String, Spawn> gWorldSpawns;
+	private static HashMap<String, Spawn> gWorldSpawns = new HashMap<>();
 	private static Hub gHubLocation;
   
   /**
@@ -27,7 +28,7 @@ public class WorldSpawnService implements Listener {
    * @return Location of the world spawn.
    */
   public static Location getWorldSpawnLocation(String worldName) {
-    return spawnExists(worldName) ? getSpawn(worldName).getLocation() : null;
+    return spawnExists(worldName) ? getSpawn(worldName, true).getLocation() : null;
   }
 
   /**
@@ -86,12 +87,35 @@ public class WorldSpawnService implements Listener {
    * @return
    */
 	public static boolean setSpawnLink(String pWorldName, String pSpawnLocationName){
-		if(!spawnExists(pSpawnLocationName)){
-			return false;
-		}
 		Spawn loc = getSpawn(pSpawnLocationName);
+    if(loc == null) return false;
 		setSpawn(pWorldName, loc.getLocation(), loc.isRespawn());
 		return true;
+	}
+
+  /**
+   * Get spawn by name.
+   * @param pSpawnLocationName Name of the spawn
+   * @param deep Find the actual spawn if the world is linked to an other world.
+   * @return Spawn or null if not exists.
+   */
+	public static Spawn getSpawn(String pSpawnLocationName, boolean deep) {
+    
+		if(spawnExists(pSpawnLocationName)){
+			Spawn spawn = gWorldSpawns.get(pSpawnLocationName);
+      if(spawn.worldExists()) {
+        Spawn finalSpawn = spawn;
+        if(deep && !pSpawnLocationName.equals(spawn.getLocation().getWorld().getName())) {
+          Spawn topSpawn = getSpawn(spawn.getLocation().getWorld().getName(), true);
+          if(topSpawn != null){
+            finalSpawn = topSpawn;
+          }
+        }
+        return finalSpawn;
+      }
+		}
+
+		return null;
 	}
 
   /**
@@ -100,13 +124,8 @@ public class WorldSpawnService implements Listener {
    * @return Spawn or null if not exists.
    */
 	public static Spawn getSpawn(String pSpawnLocationName) {
-		if(spawnExists(pSpawnLocationName)){
-			Spawn spawn = gWorldSpawns.get(pSpawnLocationName);
-			return spawn.worldExists() ? spawn : null;
-		}
-
-		return spawnExists(pSpawnLocationName) ? gWorldSpawns.get(pSpawnLocationName) : null;
-	}
+    return getSpawn(pSpawnLocationName, false);
+  }
 	
   /**
    * Sets a spawn. Will create if not exists or update if exists.
@@ -114,10 +133,10 @@ public class WorldSpawnService implements Listener {
    * @param pLocation Location of the spawn.
    * @param pRespawn If respawn is enabled.
    */
-	public static void setSpawn(String pSpawnLocationName, Location pLocation, boolean pRespawn) {
+	public static void setSpawn(String pSpawnLocationName, Location pLocation, Boolean pRespawn) {
 		Spawn spawn = getSpawn(pSpawnLocationName);
 		if(spawn == null) {
-			spawn = new Spawn(pLocation.getWorld().getName(), pLocation.toVector(), pLocation.getYaw(), pLocation.getPitch(), pRespawn);
+			spawn = new Spawn(pSpawnLocationName, pLocation.getWorld().getName(), pLocation.toVector(), pLocation.getYaw(), pLocation.getPitch(), pRespawn);
 			gWorldSpawns.put(pSpawnLocationName, spawn);
 		} else {
 			spawn.setLocation(pLocation);
@@ -154,8 +173,8 @@ public class WorldSpawnService implements Listener {
    * @param pSpawnLocationName Name of the spawn.
    * @param respawn If the players will spawn after respawning.
    */
-	public static boolean setSpawnOnRespawn(String pSpawnLocationName, boolean respawn) {
-		Spawn spawn = getSpawn(pSpawnLocationName);
+	public static boolean setSpawnOnRespawn(String pSpawnLocationName, Boolean respawn) {
+		Spawn spawn = getSpawn(pSpawnLocationName, true);
     if(spawn != null){
       spawn.setSpawnOnRespawn(respawn);
       spawn.save();
@@ -164,7 +183,7 @@ public class WorldSpawnService implements Listener {
     return false;
 	}
   
-	@EventHandler(priority=EventPriority.LOW)
+	@EventHandler(priority=EventPriority.LOWEST)
 	public void onPlayerJoin(PlayerJoinEvent evt){
 		Player p = evt.getPlayer();
 		if(WSConfig.isHubOnJoin()){
@@ -174,21 +193,21 @@ public class WorldSpawnService implements Listener {
 			}
 		}
 		else if(WSConfig.isSpawnOnJoin()){
-			Spawn spawn = WorldSpawnService.getSpawn(p.getWorld().getName());
+			Spawn spawn = WorldSpawnService.getSpawn(p.getWorld().getName(), true);
 			if(spawn != null && spawn.worldExists()) {
 				p.teleport(spawn.getLocation());
 			}
 		}
 	}
 	
-	@EventHandler(priority=EventPriority.NORMAL)
+	@EventHandler(priority=EventPriority.LOWEST)
 	public void onPlayerRespawn(PlayerRespawnEvent evt){
-		Spawn respawnLocation = WorldSpawnService.getSpawn(evt.getRespawnLocation().getWorld().getName());
+		Spawn respawnLocation = WorldSpawnService.getSpawn(evt.getRespawnLocation().getWorld().getName(), true);
 		if(respawnLocation == null){ // No spawn is available in the current world and no hub location defined
 			return;
 		}
 		Boolean respawn = respawnLocation.isRespawn();
-		if(respawnLocation != null && (respawn || (!respawn && !evt.isBedSpawn()))) { // If the player gets relocated when respawning
+		if(respawnLocation != null && (respawn || (!respawn && !evt.isBedSpawn() && evt.getRespawnLocation().getWorld().getEnvironment() != Environment.NETHER))) { // If the player gets relocated when respawning
 			evt.setRespawnLocation(respawnLocation.getLocation());
 		}
 	}

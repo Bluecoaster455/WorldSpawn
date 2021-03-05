@@ -44,7 +44,7 @@ hub-not-exists: '&cHub existiert nicht'
 
 #Gezeigt bei erfolgreicher Einstellung der Spawn-Location einer Welt
 #%w = Weltname
-set-spawn-success: '&aSpawn gesetzt für %w&a!'
+set-spawn-success: '&aSpawn gesetzt für &e%w&a!'
 
 #Wird beim erfolgreichen Löschen eines Spawn von% w world angezeigt
 #%w = Weltname
@@ -58,7 +58,7 @@ spawn-delete-fail: '&aUnable to delete spawn for &e%w &a!'
 #Gezeigt bei der Verwendung /spawn mit einer Verzögerung
 #%w = Weltname
 #%t = Verzögerung in Sekunden
-spawning-delay-message: '&aSpawning to &e%w im %t sekunden...'
+spawning-delay-message: '&aSpawning to &e%w &aim %t sekunden...'
 
 #Shown when using /hub with a delay
 #WHERE %t = delay in seconds

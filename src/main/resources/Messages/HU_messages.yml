@@ -44,7 +44,7 @@ hub-not-exists: '&cA Hub nem létezik'
 
 #A világ spawn helyének sikeres beállításakor látható
 #AHOL %w = világ név
-set-spawn-success: '&aA spawn beállítva a(z) %w&a világban!'
+set-spawn-success: '&aA spawn beállítva a(z) &e%w&a világban!'
 
 #Megjelenítve, ha sikeresen törli az íveket a %w világból
 #AHOL %w = világ név

@@ -44,7 +44,7 @@ hub-not-exists: '&cHub no existe'
 
 #Se muestra al establecer con éxito la ubicación de desove de un mundo
 #%w = nombre mundial
-set-spawn-success: '&aSpawn establecido para %w&a!'
+set-spawn-success: '&aSpawn establecido para &e%w&a!'
 
 #Se muestra al eliminar con éxito un spawn del mundo
 #%w = nombre mundial
@@ -58,7 +58,7 @@ spawn-delete-fail: '&aUnable to delete spawn for &e%w &a!'
 #Se muestra al usar /spawn con un retardo
 #%w = nombre mundial
 #%t = retraso en segundos
-spawning-delay-message: '&aSpawning a &e%w en %t segundos...'
+spawning-delay-message: '&aSpawning a &e%w &aen %t segundos...'
 
 #Shown when using /hub with a delay
 #WHERE %t = delay in seconds

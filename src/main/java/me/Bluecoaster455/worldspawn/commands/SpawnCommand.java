@@ -24,7 +24,7 @@ public class SpawnCommand implements CommandExecutor{
 		
 		if(Permissions.hasPermission(p, Permissions.USE)){
 			Location loc = p.getLocation();
-			Spawn spawn = WorldSpawnService.getSpawn(loc.getWorld().getName());
+			Spawn spawn = WorldSpawnService.getSpawn(loc.getWorld().getName(), true);
 			
 			if(spawn == null){
 				p.sendMessage(WSConfig.getErrorPrefix() + WSConfig.getMessage("no-spawn-world"));

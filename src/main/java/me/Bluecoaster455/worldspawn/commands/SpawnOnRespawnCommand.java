@@ -27,10 +27,22 @@ public class SpawnOnRespawnCommand implements CommandExecutor {
 		
 		if(Permissions.hasPermission(p, Permissions.ADMIN)){
 			
-			String pWorld = p.getLocation().getWorld().getName();
+      Boolean respawn = null;
+			if(args.length >= 1){
+        try {
+          respawn = Utils.parseBool(args[0]);
+        } catch (IllegalArgumentException ex) {
+          p.sendMessage(WSConfig.getAdminPrefix()+"§6/"+label+" <true|false>");
+					return true;
+        }
+			} else {
+				p.sendMessage(WSConfig.getAdminPrefix()+"§6/"+label+" <true|false> [world]");
+				return true;
+			}
 			
-			if(args.length > 0){
-				World w = Bukkit.getWorld(args[0]);
+			String pWorld = p.getLocation().getWorld().getName();
+			if(args.length >= 2){
+				World w = Bukkit.getWorld(args[1]);
 				if(w == null){
 					p.sendMessage(WSConfig.getErrorPrefix() + WSConfig.getMessage("specified-world-not-exist"));
 					return true;
@@ -41,20 +53,9 @@ public class SpawnOnRespawnCommand implements CommandExecutor {
 			}
 			
 			Location spawnloc = WorldSpawnService.getWorldSpawnLocation(pWorld);
-			
 			if(spawnloc == null){
 				p.sendMessage(WSConfig.getAdminPrefix() + WSConfig.getMessage("no-spawn-world"));
 				return true;
-			}
-
-      boolean respawn = false;
-
-			if(args.length >= 2){
-        try {
-          respawn = Utils.parseBool(args[1]);
-        } catch (IllegalArgumentException ex) {
-          p.sendMessage(WSConfig.getAdminPrefix()+"§6/"+label+" <true|false>");
-        }
 			}
 			
 			boolean success = WorldSpawnService.setSpawnOnRespawn(pWorld, respawn);

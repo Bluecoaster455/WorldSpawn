@@ -44,7 +44,7 @@ hub-not-exists: '&cLe hub n''existe pas.'
 
 #S'affiche quand la fixation d'un spawn a été un succès.
 #OÙ %w = Le nom du monde
-set-spawn-success: '&aSpawn fixé pour %w&a!'
+set-spawn-success: '&aSpawn fixé pour &e%w&a!'
 
 #S'affiche quand la suppression d'un spawn a été un succès.
 #OÙ %w = Le nom du monde
@@ -58,7 +58,7 @@ spawn-delete-fail: '&aÉchec de la suppression du spawn pour &e%w &a!'
 #s'affiche quand le joueur se téléporte avec un délai
 #OÙ %w = Le nom du monde
 #   %t = delai en secondes
-spawning-delay-message: '&aTéléportation à &e%w dans %t secondes...'
+spawning-delay-message: '&aTéléportation à &e%w &adans %t secondes...'
 
 #s'affiche quand le joueur se téléporte avec un délai
 #OÙ %t = delai en secondes

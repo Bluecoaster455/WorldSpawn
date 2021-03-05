@@ -58,7 +58,7 @@ spawn-delete-fail: '&aUnable to delete spawn for &e%w &a!'
 #Сообщение задержки телепортирования на спавн
 #%w = название мира
 #%t = задержка в секундах
-spawning-delay-message: '&aНЕ ДВИГАЙТЕСЬ! Телепортация на спавн &e%w через %t секунд...'
+spawning-delay-message: '&aНЕ ДВИГАЙТЕСЬ! Телепортация на спавн &e%w &aчерез %t секунд...'
 
 #Shown when using /hub with a delay
 #WHERE %t = delay in seconds

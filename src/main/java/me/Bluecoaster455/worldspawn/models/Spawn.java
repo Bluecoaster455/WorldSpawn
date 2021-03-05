@@ -10,13 +10,15 @@ import me.bluecoaster455.worldspawn.WorldSpawn;
 import me.bluecoaster455.worldspawn.config.WSConfig;
 
 public class Spawn {
+    private String spawnname;
     private String worldname;
     private Vector position;
     private float yaw;
     private float pitch;
     private Boolean respawn;
 
-    public Spawn(String worldname, Vector position, float yaw, float pitch, Boolean respawn){
+    public Spawn(String spawnname, String worldname, Vector position, float yaw, float pitch, Boolean respawn){
+        this.spawnname = spawnname;
         this.worldname = worldname;
         this.position = position;
         this.respawn = respawn;
@@ -24,7 +26,8 @@ public class Spawn {
         this.pitch = pitch;
     }
 
-    public Spawn(String worldname, double x, double y, double z, float yaw, float pitch, Boolean respawn){
+    public Spawn(String spawnname, String worldname, double x, double y, double z, float yaw, float pitch, Boolean respawn){
+        this.spawnname = spawnname;
         this.worldname = worldname;
         this.position = new Vector(x,y,z);
         this.respawn = respawn;
@@ -52,19 +55,19 @@ public class Spawn {
         return respawn == null ? WSConfig.isSpawnOnRespawn() : respawn;
     }
 
-    public void setSpawnOnRespawn(boolean respawn) {
-        this.respawn = respawn;
+    public void setSpawnOnRespawn(Boolean respawn) {
+        this.respawn = respawn == null ? true : respawn;
     }
 
     public void save() {
 		FileConfiguration conf = WorldSpawn.getPlugin().getConfig();
-		conf.set("spawns."+this.worldname+".spawn-on-respawn", this.respawn);
-		conf.set("spawns."+this.worldname+".world", this.worldname);
-		conf.set("spawns."+this.worldname+".x", this.position.getX());
-		conf.set("spawns."+this.worldname+".y", this.position.getY());
-		conf.set("spawns."+this.worldname+".z", this.position.getZ());
-		conf.set("spawns."+this.worldname+".yaw", this.yaw);
-		conf.set("spawns."+this.worldname+".pitch", this.pitch);
+		conf.set("spawns."+this.spawnname+".spawn-on-respawn", this.respawn);
+		conf.set("spawns."+this.spawnname+".world", this.worldname);
+		conf.set("spawns."+this.spawnname+".x", this.position.getX());
+		conf.set("spawns."+this.spawnname+".y", this.position.getY());
+		conf.set("spawns."+this.spawnname+".z", this.position.getZ());
+		conf.set("spawns."+this.spawnname+".yaw", this.yaw);
+		conf.set("spawns."+this.spawnname+".pitch", this.pitch);
 		WorldSpawn.getPlugin().saveConfig();
     }
 

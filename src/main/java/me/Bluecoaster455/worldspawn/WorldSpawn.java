@@ -10,13 +10,13 @@ import me.bluecoaster455.worldspawn.commands.SpawnOnRespawnCommand;
 import me.bluecoaster455.worldspawn.commands.WorldSpawnCommand;
 import me.bluecoaster455.worldspawn.config.WSConfig;
 import me.bluecoaster455.worldspawn.services.SpawnDelayService;
+import me.bluecoaster455.worldspawn.services.WorldSpawnService;
 
 import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
-public class WorldSpawn extends JavaPlugin implements Listener{
+public class WorldSpawn extends JavaPlugin {
 	
 	private static WorldSpawn gPlugin;
 	
@@ -47,6 +47,7 @@ public class WorldSpawn extends JavaPlugin implements Listener{
 		Bukkit.getPluginCommand("spawnonrespawn").setExecutor(new SpawnOnRespawnCommand());
 		
 		Bukkit.getPluginManager().registerEvents(new SpawnDelayService(), this);
+		Bukkit.getPluginManager().registerEvents(new WorldSpawnService(), this);
 		
 		WSConfig.reload(WorldSpawn.getPlugin());
 		
